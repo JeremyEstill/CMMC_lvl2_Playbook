@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> PeopleTec CMMC Level 2 Compliance Playbook</title>
+<style>
+  :root {
+    --blue-900: #042C53;
+    --blue-800: #0C447C;
+    --blue-600: #185FA5;
+    --blue-200: #85B7EB;
+    --blue-100: #B5D4F4;
+    --blue-50:  #E6F1FB;
+    --teal-800: #085041;
+    --teal-600: #0F6E56;
+    --teal-50:  #E1F5EE;
+    --gray-900: #2C2C2A;
+    --gray-800: #444441;
+    --gray-600: #5F5E5A;
+    --gray-200: #B4B2A9;
+    --gray-100: #D3D1C7;
+    --gray-50:  #F1EFE8;
+    --amber-800: #633806;
+    --amber-600: #854F0B;
+    --amber-50:  #FAEEDA;
+    --red-600: #A32D2D;
+    --red-50:  #FCEBEB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gray-900);
+    background: #ffffff;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--blue-900);
+    color: #ffffff;
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--blue-800);
+    opacity: 0.5;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--blue-800);
+    opacity: 0.3;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--blue-600);
+    color: var(--blue-100);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 span { color: var(--blue-200); }
+  .cover-sub {
+    font-size: 16px;
+    color: var(--blue-100);
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-mantra {
+    background: var(--blue-800);
+    border-left: 3px solid var(--blue-200);
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--blue-100);
+    font-style: italic;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-mantra strong { color: #ffffff; font-style: normal; display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* NAV */
+  .toc {
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 32px 56px;
+  }
+  .toc h2 {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    margin-bottom: 16px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 6px 24px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    text-decoration: none;
+    color: var(--gray-800);
+    font-size: 13px;
+    border-bottom: 0.5px solid var(--gray-100);
+  }
+  .toc-item:hover { color: var(--blue-600); }
+  .toc-num {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--blue-600);
+    min-width: 20px;
+  }
+
+  /* MAIN */
+  .content { padding: 0 56px; }
+
+  /* PHASE HEADER */
+  .phase {
+    margin-top: 56px;
+    padding-top: 56px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .phase:first-child { border-top: none; }
+  .phase-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+    margin-bottom: 8px;
+  }
+  .phase h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .phase-desc {
+    font-size: 14px;
+    color: var(--gray-600);
+    max-width: 640px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 28px; }
+  .section h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid var(--gray-100);
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--blue-50);
+    border-left: 3px solid var(--blue-600);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--blue-800);
+  }
+  .callout.warning {
+    background: var(--amber-50);
+    border-color: var(--amber-600);
+    color: var(--amber-800);
+  }
+  .callout.danger {
+    background: var(--red-50);
+    border-color: var(--red-600);
+    color: var(--red-600);
+  }
+  .callout.success {
+    background: var(--teal-50);
+    border-color: var(--teal-600);
+    color: var(--teal-800);
+  }
+
+  /* STEP BOXES */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .step-box {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .step-box .step-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .step-box .step-body {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* DOC LIST */
+  .doc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+  }
+  .doc-tag {
+    background: var(--blue-50);
+    color: var(--blue-800);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 0.5px solid var(--blue-100);
+  }
+  .doc-tag.gray {
+    background: var(--gray-50);
+    color: var(--gray-800);
+    border-color: var(--gray-100);
+  }
+
+  /* RULE LIST */
+  .rule-list { list-style: none; margin: 10px 0; }
+  .rule-list li {
+    padding: 7px 0 7px 18px;
+    position: relative;
+    font-size: 13px;
+    color: var(--gray-800);
+    border-bottom: 0.5px solid var(--gray-50);
+  }
+  .rule-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 6px; height: 6px;
+    background: var(--blue-200);
+    border-radius: 50%;
+  }
+
+  /* FAMILY GRID */
+  .family-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .family-card {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .family-num {
+    font-size: 11px;
+    color: var(--blue-600);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .family-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .family-question {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .family-artifacts {
+    font-size: 11px;
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* EVIDENCE BINDER */
+  .binder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .binder-folder {
+    background: var(--blue-50);
+    border: 0.5px solid var(--blue-100);
+    border-radius: 8px 8px 8px 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--blue-800);
+    font-weight: 500;
+  }
+  .binder-folder .folder-num {
+    font-size: 11px;
+    color: var(--blue-600);
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+
+  /* PATH BOXES */
+  .path-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .path-card {
+    border: 0.5px solid var(--gray-100);
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+  }
+  .path-card.primary { border-color: var(--blue-200); }
+  .path-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+    margin-bottom: 6px;
+  }
+  .path-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 10px;
+  }
+  .path-steps { list-style: none; }
+  .path-steps li {
+    font-size: 12px;
+    color: var(--gray-600);
+    padding: 5px 0 5px 16px;
+    position: relative;
+    border-bottom: 0.5px solid var(--gray-50);
+  }
+  .path-steps li::before {
+    content: counter(step);
+    counter-increment: step;
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--blue-600);
+    top: 6px;
+  }
+  .path-steps { counter-reset: step; }
+
+  /* FIVE RULES */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .rule-card {
+    border: 0.5px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+  }
+  .rule-number {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gray-100);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .rule-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-800);
+    margin-bottom: 6px;
+  }
+  .rule-body {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* TIMELINE */
+  .timeline { margin: 16px 0; }
+  .tl-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .tl-label {
+    flex-shrink: 0;
+    width: 96px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--blue-600);
+    background: var(--blue-50);
+    border: 0.5px solid var(--blue-100);
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .tl-body {
+    font-size: 13px;
+    color: var(--gray-800);
+    padding-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* POAM TABLE */
+  .poam-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .poam-field {
+    background: var(--gray-50);
+    border: 0.5px solid var(--gray-100);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--gray-600);
+  }
+  .poam-field strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 2px;
+  }
+
+  /* MONITORING CALENDAR */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .cal-card {
+    border: 0.5px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: #fff;
+  }
+  .cal-freq {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+    margin-bottom: 6px;
+  }
+  .cal-items {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  .playbook-footer {
+    margin-top: 64px;
+    padding: 24px 56px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-100);
+    font-size: 12px;
+    color: var(--gray-600);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media print {
+    .cover { background: #042C53 !important; -webkit-print-color-adjust: exact; }
+    .phase { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">Cybersecurity Compliance</div>
+  <h1>PeopleTec CMMC Level 2<br><span>Compliance Playbook</span></h1>
+  <p class="cover-sub">A structured guide from program inception to certification — and beyond:
+    created by Jeremy Estill.</p>
+  <div class="cover-mantra">
+    <strong>Core Execution Mantra</strong>
+    "We identify CUI, define the CMMC scope, assign ownership, document the environment, implement the 110 requirements, gather evidence, assess ourselves honestly, fix gaps, and then submit or certify."
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>Contents</h2>
+  <div class="toc-grid">
+    <a href="#p0" class="toc-item"><span class="toc-num">0</span> Set Expectations &amp; Assign Roles</a>
+    <a href="#p1" class="toc-item"><span class="toc-num">1</span> Identify What You Are Protecting</a>
+    <a href="#p2" class="toc-item"><span class="toc-num">2</span> Define the Assessment Scope</a>
+    <a href="#p3" class="toc-item"><span class="toc-num">3</span> Choose Your Compliance Path</a>
+    <a href="#p4" class="toc-item"><span class="toc-num">4</span> Stand Up Governance &amp; Policy</a>
+    <a href="#p5" class="toc-item"><span class="toc-num">5</span> Build the SSP</a>
+    <a href="#p6" class="toc-item"><span class="toc-num">6</span> Implement the 110 Requirements</a>
+    <a href="#p7" class="toc-item"><span class="toc-num">7</span> Build Objective Evidence</a>
+    <a href="#p8" class="toc-item"><span class="toc-num">8</span> Perform Internal Self-Assessment</a>
+    <a href="#p9" class="toc-item"><span class="toc-num">9</span> Build &amp; Manage the POA&amp;M</a>
+    <a href="#p10" class="toc-item"><span class="toc-num">10</span> Management Review &amp; Readiness</a>
+    <a href="#p11" class="toc-item"><span class="toc-num">11</span> Submit or Certify</a>
+    <a href="#p12" class="toc-item"><span class="toc-num">12</span> Continuous Monitoring</a>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- PHASE 0 -->
+<div class="phase" id="p0">
+  <div class="phase-label">Phase 0</div>
+  <h2>Set Expectations &amp; Assign Roles</h2>
+  <p class="phase-desc">Before touching technology, know the mission. Success is not "having a nice SSP." It is a fully implemented, evidenced, and assessed program — with clearly assigned ownership at every layer.</p>
+
+  <div class="callout success">
+    <strong>What success actually looks like:</strong> CUI is tracked and protected. The assessment scope is accurate and defensible. All 110 NIST SP 800-171 requirements are implemented with evidence. The correct Level 2 assessment path is completed, including affirmation and SPRS reporting.
+  </div>
+
+  <div class="section">
+    <h3>Core Team Roles</h3>
+    <p style="font-size:13px;color:var(--gray-600);margin-bottom:10px;">Assign a named individual to each role. In smaller organizations, one person may cover multiple roles — what matters is that every control has an owner and every document has an author.</p>
+    <div class="step-grid">
+      <div class="step-box"><div class="step-title">Executive Sponsor</div><div class="step-body">Organizational authority and accountability</div></div>
+      <div class="step-box"><div class="step-title">CMMC Program Lead</div><div class="step-body">Day-to-day program coordination</div></div>
+      <div class="step-box"><div class="step-title">System / Enclave Owner</div><div class="step-body">Scope boundary owner</div></div>
+      <div class="step-box"><div class="step-title">ISSM / Security Lead</div><div class="step-body">Technical security oversight</div></div>
+      <div class="step-box"><div class="step-title">IT / Network Admin</div><div class="step-body">Technical implementation</div></div>
+      <div class="step-box"><div class="step-title">HR / Training Owner</div><div class="step-body">Personnel and training records</div></div>
+      <div class="step-box"><div class="step-title">Facilities / Physical</div><div class="step-body">Physical access controls</div></div>
+      <div class="step-box"><div class="step-title">Contracts / Procurement</div><div class="step-body">Vendor and contract compliance</div></div>
+      <div class="step-box"><div class="step-title">Legal / Privacy Lead</div><div class="step-body">CUI legal obligations (if available)</div></div>
+      <div class="step-box"><div class="step-title">Evidence Coordinator</div><div class="step-body">Document librarian and artifact control</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Foundation Documents to Create</h3>
+    <div class="doc-list">
+      <span class="doc-tag">CMMC Program Charter</span>
+      <span class="doc-tag">Roles &amp; Responsibilities Matrix (RACI)</span>
+      <span class="doc-tag">System / Enclave Decision Memo</span>
+      <span class="doc-tag">Master Project Plan / Integrated Schedule</span>
+      <span class="doc-tag">Evidence Register</span>
+      <span class="doc-tag">Document Register / Version Control Log</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="phase" id="p1">
+  <div class="phase-label">Phase 1</div>
+  <h2>Identify What You Are Protecting</h2>
+  <p class="phase-desc">This is where most organizations win or lose. Everything downstream — scope, SSP, controls, evidence — depends on a precise understanding of where CUI exists and how it moves.</p>
+
+  <div class="section">
+    <h3>Step 1 — Confirm CUI Presence</h3>
+    <ul class="rule-list">
+      <li>Do we receive CUI from DoD or prime contractors?</li>
+      <li>Do we create CUI while performing on contract?</li>
+      <li>Is CUI properly marked and identifiable?</li>
+      <li>Where is it stored, emailed, shared, backed up, printed, or discussed?</li>
+    </ul>
+    <p style="font-size:12px;color:var(--gray-600);margin-top:8px;">Note: NIST SP 800-171 applies to protecting the confidentiality of CUI in nonfederal systems. If no CUI is present, Level 2 may not be the applicable target for that environment.</p>
+  </div>
+
+  <div class="section">
+    <h3>Step 2 — Build the CUI Data Flow</h3>
+    <div class="callout">Map CUI through its full lifecycle: <strong>Enters → Processed → Stored → Shared → Archived / Destroyed</strong>. For each stage, identify people, devices, applications, servers, networks, cloud services, physical locations, and external parties.</div>
+    <h3 style="margin-top:20px;">Required Documents</h3>
+    <div class="doc-list">
+      <span class="doc-tag">CUI Identification Register</span>
+      <span class="doc-tag">CUI Data Flow Diagram</span>
+      <span class="doc-tag">CUI Asset Inventory</span>
+      <span class="doc-tag">CUI Use Case Matrix</span>
+      <span class="doc-tag">External Connections Register</span>
+      <span class="doc-tag">Third-Party / Subcontractor CUI Register</span>
+      <span class="doc-tag">Boundary Diagram / Network Diagram</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase" id="p2">
+  <div class="phase-label">Phase 2</div>
+  <h2>Define the Assessment Scope</h2>
+  <p class="phase-desc">This is the most critical decision point in the program. If scope is wrong, every control, policy, diagram, and assessment answer will be wrong. The official Level 2 scoping guidance must be followed before any assessment scope is finalized.</p>
+
+  <div class="callout danger">If we scope badly, every control, every policy, every diagram, and every assessment answer will be wrong.</div>
+
+  <div class="section">
+    <h3>Minimum Scope Inclusions</h3>
+    <ul class="rule-list">
+      <li>Assets that process, store, or transmit CUI</li>
+      <li>Assets that provide security protection for CUI assets</li>
+      <li>Relevant users, administrators, and support personnel</li>
+      <li>Relevant physical spaces</li>
+      <li>Relevant external connections and service providers</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Strategic Scoping Decision</h3>
+    <div class="path-grid">
+      <div class="path-card">
+        <div class="path-label">Option A</div>
+        <div class="path-title">Scope the Whole Enterprise</div>
+        <p class="rule-body">Best when the organization is already mature and most business systems touch CUI. Broader scope means broader assessment coverage.</p>
+      </div>
+      <div class="path-card primary">
+        <div class="path-label">Option B — Recommended for Speed</div>
+        <div class="path-title">Build a Dedicated CUI Enclave</div>
+        <p class="rule-body">Best for organizations pursuing Level 2 quickly. A well-designed enclave is easier to defend, document, and assess than a flat enterprise environment.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Required Documents</h3>
+    <div class="doc-list">
+      <span class="doc-tag">CMMC Scope Statement</span>
+      <span class="doc-tag">Assessment Boundary Diagram</span>
+      <span class="doc-tag">Authorized Asset Inventory</span>
+      <span class="doc-tag">Security Protection Asset List</span>
+      <span class="doc-tag">User / Role Inventory</span>
+      <span class="doc-tag">Physical Scope Statement</span>
+      <span class="doc-tag">External Service Provider Matrix</span>
+      <span class="doc-tag">Inherited Controls Matrix</span>
+      <span class="doc-tag">Shared Responsibility Matrix</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase" id="p3">
+  <div class="phase-label">Phase 3</div>
+  <h2>Choose Your Compliance Path</h2>
+  <p class="phase-desc">Level 2 compliance may be achieved through self-assessment or third-party certification, depending on contract requirements. Understand both paths — and build to the higher standard regardless.</p>
+
+  <div class="path-grid">
+    <div class="path-card">
+      <div class="path-label">Path A</div>
+      <div class="path-title">Level 2 Self-Assessment</div>
+      <ol class="path-steps">
+        <li>Conduct internal assessment</li>
+        <li>Document results</li>
+        <li>Submit results in SPRS</li>
+        <li>Submit affirmation in SPRS</li>
+        <li>Repeat within three years to maintain compliance</li>
+      </ol>
+    </div>
+    <div class="path-card primary">
+      <div class="path-label">Path B</div>
+      <div class="path-title">Level 2 C3PAO Certification</div>
+      <ol class="path-steps">
+        <li>Engage an authorized / accredited C3PAO</li>
+        <li>Provide scope, SSP, policies, diagrams, and evidence</li>
+        <li>Support interviews, examination, and testing</li>
+        <li>Receive MET / NOT MET results</li>
+        <li>Resolve any allowable POA&amp;M items within 180 days</li>
+        <li>Submit required affirmation in SPRS</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <strong>Governing principle:</strong> Build as if a C3PAO will examine everything — even when the contract only requires self-assessment. That mindset prevents sloppy documentation and weak evidence, and eliminates costly rework if certification is required later.
+  </div>
+
+  <div class="section">
+    <h3>Required Documents</h3>
+    <div class="doc-list">
+      <span class="doc-tag">Assessment Strategy Memo</span>
+      <span class="doc-tag">Contract Requirement Traceability Matrix</span>
+      <span class="doc-tag">SPRS Submission Plan</span>
+      <span class="doc-tag">C3PAO Readiness Plan (if certification required)</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase" id="p4">
+  <div class="phase-label">Phase 4</div>
+  <h2>Stand Up Governance &amp; Policy</h2>
+  <p class="phase-desc">This phase produces the formal body of evidence. Every policy must have a matching procedure, and every procedure must have associated implementation evidence. The SSP and POA&amp;M are the anchors of the entire program.</p>
+
+  <div class="section">
+    <h3>Core Policy Framework</h3>
+    <div class="doc-list">
+      <span class="doc-tag">System Security Plan (SSP)</span>
+      <span class="doc-tag">Plan of Action &amp; Milestones (POA&amp;M)</span>
+      <span class="doc-tag">Information Security Policy</span>
+      <span class="doc-tag">Access Control Policy</span>
+      <span class="doc-tag">Awareness &amp; Training Policy</span>
+      <span class="doc-tag">Audit &amp; Accountability Policy</span>
+      <span class="doc-tag">Configuration Management Policy</span>
+      <span class="doc-tag">Identification &amp; Authentication Policy</span>
+      <span class="doc-tag">Incident Response Policy</span>
+      <span class="doc-tag">Maintenance Policy</span>
+      <span class="doc-tag">Media Protection Policy</span>
+      <span class="doc-tag">Personnel Security Policy</span>
+      <span class="doc-tag">Physical Protection Policy</span>
+      <span class="doc-tag">Risk Assessment Policy</span>
+      <span class="doc-tag">Security Assessment Policy</span>
+      <span class="doc-tag">System &amp; Communications Protection Policy</span>
+      <span class="doc-tag">System &amp; Information Integrity Policy</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Standards &amp; Procedures</h3>
+    <div class="doc-list">
+      <span class="doc-tag gray">CUI Handling / Marking / Transmission Standard</span>
+      <span class="doc-tag gray">Change Management Procedure</span>
+      <span class="doc-tag gray">Vulnerability Management Procedure</span>
+      <span class="doc-tag gray">Account Management Procedure</span>
+      <span class="doc-tag gray">Backup &amp; Recovery Procedure</span>
+      <span class="doc-tag gray">Remote Access Procedure</span>
+      <span class="doc-tag gray">Mobile Device / BYOD Standard</span>
+      <span class="doc-tag gray">Cryptography / Encryption Standard</span>
+      <span class="doc-tag gray">Logging &amp; Monitoring Standard</span>
+      <span class="doc-tag gray">Vendor / ESP Security Procedure</span>
+      <span class="doc-tag gray">Media Sanitization &amp; Destruction Procedure</span>
+      <span class="doc-tag gray">Visitor Control Procedure</span>
+      <span class="doc-tag gray">Sanctions / Disciplinary Procedure</span>
+      <span class="doc-tag gray">Secure Configuration Baselines</span>
+      <span class="doc-tag gray">Contingency / Recovery Procedure</span>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <strong>Critical:</strong> Under CMMC POA&amp;M rules, the System Security Plan requirement itself cannot be placed on a POA&amp;M. You cannot appear without a real SSP and expect a conditional pass.
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase" id="p5">
+  <div class="phase-label">Phase 5</div>
+  <h2>Build the System Security Plan (SSP)</h2>
+  <p class="phase-desc">The SSP is the story of the environment. If the story is vague, the assessor assumes the control is weak. Every control section must be defensible on its own.</p>
+
+  <div class="section">
+    <h3>Required SSP Content</h3>
+    <div class="step-grid">
+      <div class="step-box"><div class="step-title">System Identity</div><div class="step-body">Name, purpose, business function, owner, authorization context</div></div>
+      <div class="step-box"><div class="step-title">Scope &amp; Boundary</div><div class="step-body">Boundary description, network architecture, data flow summary</div></div>
+      <div class="step-box"><div class="step-title">Asset Inventory</div><div class="step-body">Devices, applications, locations, users, roles</div></div>
+      <div class="step-box"><div class="step-title">Dependencies</div><div class="step-body">External connections, inherited controls, shared responsibilities</div></div>
+      <div class="step-box"><div class="step-title">Control Statements</div><div class="step-body">All 110 requirements with implementation details and evidence references</div></div>
+      <div class="step-box"><div class="step-title">Gaps &amp; Monitoring</div><div class="step-body">POA&amp;M links, continuous monitoring approach, known exceptions</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Per-Control Section Structure</h3>
+    <div class="callout">For each of the 110 requirements, document: <strong>Requirement → Applicability → Implementation Statement → Responsible Role → Technology/Mechanism → Frequency → Evidence References → Exceptions → Associated Procedure → Assessment Note.</strong> This structure maps directly to the examine/interview/test assessment methods.</div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase" id="p6">
+  <div class="phase-label">Phase 6</div>
+  <h2>Implement the 110 NIST SP 800-171 Requirements</h2>
+  <p class="phase-desc">Work the 110 controls by family — not as a single undifferentiated task. Create a worksheet for each family and walk every requirement against policy, technical implementation, and evidence.</p>
+
+  <div class="family-grid">
+    <div class="family-card">
+      <div class="family-num">AC — Family 1</div>
+      <div class="family-name">Access Control</div>
+      <div class="family-question">Who can get in? From where? To what?</div>
+      <div class="family-artifacts">Account lists · Role matrix · Remote access configs · Session timeout settings · Least privilege approvals</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">AT — Family 2</div>
+      <div class="family-name">Awareness &amp; Training</div>
+      <div class="family-question">Do people know the rules?</div>
+      <div class="family-artifacts">Annual training records · Role-based admin training · Phishing awareness content · Signed acknowledgments</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">AU — Family 3</div>
+      <div class="family-name">Audit &amp; Accountability</div>
+      <div class="family-question">Can you see what happened and who did it?</div>
+      <div class="family-artifacts">SIEM / log configs · Audit review records · Time sync configs · Log retention proof</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">CM — Family 4</div>
+      <div class="family-name">Configuration Management</div>
+      <div class="family-question">Can you prove systems are configured intentionally?</div>
+      <div class="family-artifacts">Baseline configs · Approved software list · Change tickets · Hardening standards</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">IA — Family 5</div>
+      <div class="family-name">Identification &amp; Authentication</div>
+      <div class="family-question">Can you prove users and devices are who they claim?</div>
+      <div class="family-artifacts">MFA configs · Password standards · Directory settings · Service account controls</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">IR — Family 6</div>
+      <div class="family-name">Incident Response</div>
+      <div class="family-question">What happens when something goes wrong?</div>
+      <div class="family-artifacts">IR plan · Incident tickets · Tabletop records · After-action reports</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">MA — Family 7</div>
+      <div class="family-name">Maintenance</div>
+      <div class="family-question">Who maintains systems, and how is it controlled?</div>
+      <div class="family-artifacts">Maintenance approval records · Remote maintenance procedure · Sanitization logs</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">MP — Family 8</div>
+      <div class="family-name">Media Protection</div>
+      <div class="family-question">How are files, removable media, and printouts protected?</div>
+      <div class="family-artifacts">Media inventory · Encryption settings · Sanitization logs · Destruction certificates</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">PS — Family 9</div>
+      <div class="family-name">Personnel Security</div>
+      <div class="family-question">What happens when people join, transfer, or leave?</div>
+      <div class="family-artifacts">Onboarding checklist · Termination checklist · NDA records · Access revocation records</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">PE — Family 10</div>
+      <div class="family-name">Physical Protection</div>
+      <div class="family-question">Can unauthorized persons reach CUI or CUI systems?</div>
+      <div class="family-artifacts">Badge procedures · Visitor logs · Escort procedures · Server room controls</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">RA — Family 11</div>
+      <div class="family-name">Risk Assessment</div>
+      <div class="family-question">Do you actively identify risks and vulnerabilities?</div>
+      <div class="family-artifacts">Risk register · Vulnerability scan results · Remediation decisions · Threat review notes</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">CA — Family 12</div>
+      <div class="family-name">Security Assessment</div>
+      <div class="family-question">Do you test your own controls?</div>
+      <div class="family-artifacts">Self-assessment worksheets · Internal review results · Remediation tracking · Management review notes</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">SC — Family 13</div>
+      <div class="family-name">System &amp; Communications Protection</div>
+      <div class="family-question">How is CUI protected in transit and at boundaries?</div>
+      <div class="family-artifacts">Firewall rules · Encryption configs · Segmentation proof · VPN configs · Email protections</div>
+    </div>
+    <div class="family-card">
+      <div class="family-num">SI — Family 14</div>
+      <div class="family-name">System &amp; Information Integrity</div>
+      <div class="family-question">How do you prevent, detect, and correct issues?</div>
+      <div class="family-artifacts">AV / EDR configs · Patching reports · Vulnerability remediation records · Alerting records</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 7 -->
+<div class="phase" id="p7">
+  <div class="phase-label">Phase 7</div>
+  <h2>Build Objective Evidence</h2>
+  <p class="phase-desc">A policy alone is not evidence. A screenshot alone is not evidence. A verbal claim is not evidence. Every requirement needs all three layers: policy, implementation, and proof of operation.</p>
+
+  <div class="callout">
+    The assessment guide uses <strong>interview</strong>, <strong>examine</strong>, and <strong>test</strong> methods. Your evidence set must support all three.
+  </div>
+
+  <div class="section">
+    <h3>Evidence Categories Per Requirement</h3>
+    <div class="step-grid">
+      <div class="step-box"><div class="step-title">Policy / Standard</div></div>
+      <div class="step-box"><div class="step-title">Procedure / Work Instruction</div></div>
+      <div class="step-box"><div class="step-title">Configuration Screenshot / Export</div></div>
+      <div class="step-box"><div class="step-title">Ticket / Change Record</div></div>
+      <div class="step-box"><div class="step-title">Log Sample / Report</div></div>
+      <div class="step-box"><div class="step-title">Inventory Record</div></div>
+      <div class="step-box"><div class="step-title">Approval Record</div></div>
+      <div class="step-box"><div class="step-title">Training Record</div></div>
+      <div class="step-box"><div class="step-title">Meeting Minutes / Review Evidence</div></div>
+      <div class="step-box"><div class="step-title">Interview Target Name / Role</div></div>
+      <div class="step-box"><div class="step-title">Test Result / Walkthrough Note</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Evidence Binder Structure</h3>
+    <div class="binder-grid">
+      <div class="binder-folder"><div class="folder-num">01</div>Access Control</div>
+      <div class="binder-folder"><div class="folder-num">02</div>Awareness &amp; Training</div>
+      <div class="binder-folder"><div class="folder-num">03</div>Audit &amp; Accountability</div>
+      <div class="binder-folder"><div class="folder-num">04</div>Configuration Management</div>
+      <div class="binder-folder"><div class="folder-num">05</div>Identification &amp; Authentication</div>
+      <div class="binder-folder"><div class="folder-num">06</div>Incident Response</div>
+      <div class="binder-folder"><div class="folder-num">07</div>Maintenance</div>
+      <div class="binder-folder"><div class="folder-num">08</div>Media Protection</div>
+      <div class="binder-folder"><div class="folder-num">09</div>Personnel Security</div>
+      <div class="binder-folder"><div class="folder-num">10</div>Physical Protection</div>
+      <div class="binder-folder"><div class="folder-num">11</div>Risk Assessment</div>
+      <div class="binder-folder"><div class="folder-num">12</div>Security Assessment</div>
+      <div class="binder-folder"><div class="folder-num">13</div>System &amp; Comms Protection</div>
+      <div class="binder-folder"><div class="folder-num">14</div>System &amp; Info Integrity</div>
+    </div>
+    <p style="font-size:12px;color:var(--gray-600);margin-top:8px;">Inside each folder: Policy · Procedure · Config · Logs · Tickets · Screenshots · Interview Notes · Test Results</p>
+  </div>
+
+  <div class="section">
+    <h3>Supporting Documents to Create</h3>
+    <div class="doc-list">
+      <span class="doc-tag">Control Implementation Matrix</span>
+      <span class="doc-tag">Evidence Index</span>
+      <span class="doc-tag">Interview Roster</span>
+      <span class="doc-tag">Test Script / Walkthrough Script</span>
+      <span class="doc-tag">Artifact Cross-Reference Matrix</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 8 -->
+<div class="phase" id="p8">
+  <div class="phase-label">Phase 8</div>
+  <h2>Perform the Internal Self-Assessment</h2>
+  <p class="phase-desc">Even if a C3PAO assessment is scheduled, conduct a brutally honest internal assessment first. This surfaces gaps while you still have time to remediate — not during an external review.</p>
+
+  <div class="callout warning">
+    Do not allow "sort of implemented" to be scored as MET. If a procedure says something happens but there is no proof it happened, that is a gap — treat it as such until proven otherwise.
+  </div>
+
+  <div class="section">
+    <h3>Assessment Approach</h3>
+    <p style="font-size:13px;color:var(--gray-600);">Apply the official NIST SP 800-171A assessment objectives. For each requirement, evaluate using examine, interview, and test methods. Determine objectively whether evidence shows the requirement is met.</p>
+  </div>
+
+  <div class="section">
+    <h3>Internal Assessment Outputs</h3>
+    <div class="doc-list">
+      <span class="doc-tag">Internal Assessment Plan</span>
+      <span class="doc-tag">Requirement-by-Requirement Assessment Workbook</span>
+      <span class="doc-tag">Interview Notes</span>
+      <span class="doc-tag">Test Results Log</span>
+      <span class="doc-tag">Deficiency Log</span>
+      <span class="doc-tag">Draft Score Sheet</span>
+      <span class="doc-tag">Management Review Brief</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 9 -->
+<div class="phase" id="p9">
+  <div class="phase-label">Phase 9</div>
+  <h2>Build &amp; Manage the POA&amp;M</h2>
+  <p class="phase-desc">A POA&amp;M is not a wish list. It is a disciplined closure plan. CMMC rules sharply limit what can sit on a POA&amp;M — and for how long.</p>
+
+  <div class="callout danger">
+    The organization must score MET on at least 80% of Level 2 requirements to be eligible for a conditional status. Certain requirements — including the SSP itself — cannot be placed on a POA&amp;M under any circumstances. For C3PAO conditional status, POA&amp;M closeout must occur within 180 days.
+  </div>
+
+  <div class="section">
+    <h3>Required POA&amp;M Fields Per Gap</h3>
+    <div class="poam-grid">
+      <div class="poam-field"><strong>Unique ID</strong>Tracking identifier</div>
+      <div class="poam-field"><strong>Requirement ID</strong>NIST 800-171 reference</div>
+      <div class="poam-field"><strong>Gap Description</strong>What is not implemented</div>
+      <div class="poam-field"><strong>Root Cause</strong>Why the gap exists</div>
+      <div class="poam-field"><strong>Risk Statement</strong>Business / security impact</div>
+      <div class="poam-field"><strong>Remediation Action</strong>Specific steps to fix</div>
+      <div class="poam-field"><strong>Owner</strong>Named individual accountable</div>
+      <div class="poam-field"><strong>Resources Needed</strong>Budget, tooling, personnel</div>
+      <div class="poam-field"><strong>Start Date</strong>Remediation begins</div>
+      <div class="poam-field"><strong>Target Completion</strong>Must be within allowed window</div>
+      <div class="poam-field"><strong>Dependencies</strong>Blockers or prerequisites</div>
+      <div class="poam-field"><strong>Closure Evidence</strong>How closure will be proven</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 10 -->
+<div class="phase" id="p10">
+  <div class="phase-label">Phase 10</div>
+  <h2>Management Review &amp; Readiness Decision</h2>
+  <p class="phase-desc">Before any external submission or certification engagement, conduct a formal leadership readiness review. Assessment results and affirmations carry legal and contractual consequences.</p>
+
+  <div class="section">
+    <h3>Readiness Gate Questions</h3>
+    <ul class="rule-list">
+      <li>Is the assessment scope final and defensible?</li>
+      <li>Is the SSP current, complete, and approved?</li>
+      <li>Is each requirement marked MET or on an allowable POA&amp;M?</li>
+      <li>Are all interview owners assigned and prepared?</li>
+      <li>Are external service provider responsibilities fully documented?</li>
+      <li>Are all diagrams and inventories current and accurate?</li>
+      <li>Have we identified and resolved all shadow IT or undocumented systems?</li>
+      <li>Are we prepared to truthfully affirm compliance?</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Required Governance Documents</h3>
+    <div class="doc-list">
+      <span class="doc-tag">Readiness Review Deck</span>
+      <span class="doc-tag">Executive Risk Acceptance Memo</span>
+      <span class="doc-tag">Assessment Go / No-Go Memo</span>
+      <span class="doc-tag">Final Evidence Freeze Notice</span>
+      <span class="doc-tag">SSP Approval Memo</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 11 -->
+<div class="phase" id="p11">
+  <div class="phase-label">Phase 11</div>
+  <h2>Submit or Certify</h2>
+  <p class="phase-desc">There are two finish lines, determined by contract requirement. Both paths require documented results and a formal affirmation submitted in SPRS.</p>
+
+  <div class="path-grid">
+    <div class="path-card">
+      <div class="path-label">Path A — Self-Assessment</div>
+      <div class="path-title">Level 2 Self-Assessment</div>
+      <ol class="path-steps">
+        <li>Conduct the self-assessment using 800-171A objectives</li>
+        <li>Document all results</li>
+        <li>Submit results to SPRS</li>
+        <li>Submit affirmation in SPRS</li>
+        <li>Maintain and repeat within three years</li>
+      </ol>
+    </div>
+    <div class="path-card primary">
+      <div class="path-label">Path B — Certification</div>
+      <div class="path-title">Level 2 C3PAO Certification</div>
+      <ol class="path-steps">
+        <li>Engage an authorized / accredited C3PAO</li>
+        <li>Provide all scoping and evidence packages</li>
+        <li>Support all interviews, examinations, and tests</li>
+        <li>Receive official MET / NOT MET results</li>
+        <li>Resolve eligible POA&amp;M items within 180 days if conditional</li>
+        <li>C3PAO submits results to CMMC eMASS → SPRS</li>
+        <li>Organization submits affirmation in SPRS</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 12 -->
+<div class="phase" id="p12">
+  <div class="phase-label">Phase 12</div>
+  <h2>Continuous Monitoring</h2>
+  <p class="phase-desc">CMMC is not a trophy. It is a maintenance habit. Mature programs treat compliance as an operational discipline, not a point-in-time achievement.</p>
+
+  <div class="section">
+    <h3>Compliance Calendar</h3>
+    <div class="cal-grid">
+      <div class="cal-card">
+        <div class="cal-freq">Monthly</div>
+        <div class="cal-items">Vulnerability scanning<br>Log review<br>Security metrics dashboard</div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-freq">Quarterly</div>
+        <div class="cal-items">Access reviews<br>Patch cadence review<br>POA&amp;M status review<br>Vendor review</div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-freq">Annual</div>
+        <div class="cal-items">Policy review<br>Incident exercise<br>Training renewal<br>Inventory reconciliation<br>SSP review</div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-freq">Event-Driven</div>
+        <div class="cal-items">SSP update after major changes<br>Change impact assessment<br>Affirmation planning<br>Reassessment planning</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Ongoing Program Documents</h3>
+    <div class="doc-list">
+      <span class="doc-tag gray">Continuous Monitoring Strategy</span>
+      <span class="doc-tag gray">Annual Review Calendar</span>
+      <span class="doc-tag gray">Monthly Security Metrics Dashboard</span>
+      <span class="doc-tag gray">Exception Register</span>
+      <span class="doc-tag gray">Change Impact Assessment Form</span>
+      <span class="doc-tag gray">Recurring Access Review Package</span>
+      <span class="doc-tag gray">Recurring Vulnerability Review Package</span>
+      <span class="doc-tag gray">SSP Change Log</span>
+      <span class="doc-tag gray">POA&amp;M Status Report</span>
+      <span class="doc-tag gray">Executive Compliance Dashboard</span>
+    </div>
+  </div>
+</div>
+
+<!-- FIVE RULES -->
+<div class="phase" id="rules">
+  <div class="phase-label">Governing Principles</div>
+  <h2>Five Rules to Live By</h2>
+  <p class="phase-desc">These principles govern every decision, document, and implementation choice throughout the program lifecycle.</p>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-number">1</div>
+      <div class="rule-title">Follow the CUI</div>
+      <div class="rule-body">Never start with tools. Start with where CUI exists and how it moves. That drives scope — and scope drives everything else.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">2</div>
+      <div class="rule-title">If it is not documented, it is not mature</div>
+      <div class="rule-body">A control without policy, procedure, and evidence is fragile. The assessment process is built entirely around objective evidence.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">3</div>
+      <div class="rule-title">If the scope changes, the SSP changes</div>
+      <div class="rule-body">Every major architecture change triggers SSP, diagram, inventory, and evidence updates. Security is part of the system lifecycle — not a one-time event.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">4</div>
+      <div class="rule-title">A POA&amp;M is limited</div>
+      <div class="rule-body">Do not rely on "we will fix it later." CMMC rules sharply constrain what can sit on a POA&amp;M and for how long. Deficiencies must be resolved, not deferred indefinitely.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">5</div>
+      <div class="rule-title">Build for C3PAO — even if you start with self-assessment</div>
+      <div class="rule-body">That mindset raises evidence quality and eliminates rework. DoD uses one Level 2 assessment framework for both paths.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXECUTION TIMELINE -->
+<div class="phase" id="timeline">
+  <div class="phase-label">Execution Reference</div>
+  <h2>Practical Execution Sequence</h2>
+  <p class="phase-desc">A recommended implementation order for organizations executing this program in a real-world environment.</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-label">Weeks 1–2</div><div class="tl-body">Identify contracts, CUI, owners, and scope candidates. Make the enclave vs. enterprise decision.</div></div>
+    <div class="tl-item"><div class="tl-label">Next</div><div class="tl-body">Create diagrams, asset inventories, external connection register, and provider list. Draft the scope statement.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Draft the SSP skeleton and all core policies and procedures across all 14 families.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Implement technical and administrative controls, working family by family against the requirement list.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Collect evidence into a structured repository aligned to the 14-folder binder structure.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Perform the internal assessment using NIST SP 800-171A examine / interview / test methodology.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Build the POA&amp;M for all identified gaps. Begin remediation immediately.</div></div>
+    <div class="tl-item"><div class="tl-label">Then</div><div class="tl-body">Conduct the formal management readiness review. Resolve all go / no-go items.</div></div>
+    <div class="tl-item"><div class="tl-label">Finally</div><div class="tl-body">Complete SPRS self-assessment affirmation or engage a C3PAO for certification — based on contract requirement.</div></div>
+    <div class="tl-item"><div class="tl-label">Ongoing</div><div class="tl-body">Maintain compliance through continuous monitoring, scheduled reviews, and timely SSP updates.</div></div>
+  </div>
+</div>
+
+</div><!-- end .content -->
+
+<div class="playbook-footer">
+  <span>CMMC Level 2 Compliance Playbook — Based on NIST SP 800-171 Rev. 2 &amp; CMMC Level 2 Assessment Guide</span>
+  <span>For internal use</span>
+</div>
+
+</body>
+</html>
